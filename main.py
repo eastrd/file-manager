@@ -28,7 +28,7 @@ class File:
         files = []
         for name in names:
             files.append(File(os.path.join(self.path, name)))
-        return sorted(files, key=lambda a, b: a.filename < b.filename)
+        return sorted(files, key=lambda x: x.filename)
 
 
 class Plugin:
