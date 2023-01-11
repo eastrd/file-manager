@@ -21,7 +21,7 @@ class File:
     def __init__(self, path):
         self.path = path
         self.filename = os.path.basename(path)
-        self.is_dir = os.path.isfile(self.path)
+        self.is_dir = not os.path.isfile(self.path)
 
     def list(self):
         names = os.listdir(self.path)
