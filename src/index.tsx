@@ -18,17 +18,17 @@ import logo from "../assets/logo.png";
 import { Backend } from "./service";
 
 const Content: VFC<{ backend: Backend }> = (props) => {
-  const [result, setResult] = useState<number | undefined>();
+  const [files, setFiles] = useState<string | undefined>();
 
   const onClick = async () => {
-    const result = await props.backend.doAdd();
+    const result = await props.backend.getFiles();
     if (result.success) {
-      setResult(result.result);
+      setFiles(result.result);
     }
   };
 
   return (
-    <PanelSection title="Panel Section">
+    <PanelSection title="File Manager">
       <PanelSectionRow>
         <ButtonItem
           layout="below"
@@ -45,7 +45,7 @@ const Content: VFC<{ backend: Backend }> = (props) => {
         >
           Server says yolo
         </ButtonItem>
-        <ButtonItem onClick={onClick}>Add? {result}</ButtonItem>
+        <ButtonItem onClick={onClick}>Show Files {files}</ButtonItem>
       </PanelSectionRow>
 
       <PanelSectionRow>

@@ -5,6 +5,10 @@ interface AddMethodArgs {
   right: number;
 }
 
+interface ListFilesArgs {
+  path: string;
+}
+
 export class Backend {
   private serverAPI: ServerAPI;
 
@@ -17,5 +21,14 @@ export class Backend {
       left: 2,
       right: 2,
     });
+  }
+
+  async getFiles() {
+    return this.serverAPI.callPluginMethod<ListFilesArgs, string>(
+      "list_files",
+      {
+        path: "/",
+      }
+    );
   }
 }
