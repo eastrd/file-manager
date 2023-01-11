@@ -11,31 +11,31 @@ import {
   showContextMenu,
   staticClasses,
 } from "decky-frontend-lib";
-import { VFC } from "react";
+import { useState, VFC } from "react";
 import { FaShip } from "react-icons/fa";
 
 import logo from "../assets/logo.png";
 
-// interface AddMethodArgs {
-//   left: number;
-//   right: number;
-// }
+interface AddMethodArgs {
+  left: number;
+  right: number;
+}
 
 const Content: VFC<{ serverAPI: ServerAPI }> = ({}) => {
-  // const [result, setResult] = useState<number | undefined>();
+  const [result, setResult] = useState<number | undefined>();
 
-  // const onClick = async () => {
-  //   const result = await serverAPI.callPluginMethod<AddMethodArgs, number>(
-  //     "add",
-  //     {
-  //       left: 2,
-  //       right: 2,
-  //     }
-  //   );
-  //   if (result.success) {
-  //     setResult(result.result);
-  //   }
-  // };
+  const onClick = async () => {
+    const result = await serverAPI.callPluginMethod<AddMethodArgs, number>(
+      "add",
+      {
+        left: 2,
+        right: 2,
+      }
+    );
+    if (result.success) {
+      setResult(result.result);
+    }
+  };
 
   return (
     <PanelSection title="Panel Section">
@@ -55,6 +55,7 @@ const Content: VFC<{ serverAPI: ServerAPI }> = ({}) => {
         >
           Server says yolo
         </ButtonItem>
+        <ButtonItem onClick={onClick}>ADD?! {result}</ButtonItem>
       </PanelSectionRow>
 
       <PanelSectionRow>
