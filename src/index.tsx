@@ -67,15 +67,10 @@ const FileManagerPage: VFC = () => {
   return (
     <div style={{ marginTop: "50px", color: "white" }}>
       <PanelSectionRow>
-        <Menu label="Menu" cancelText="CAAAANCEL" onCancel={() => {}}>
-          <MenuItem onSelected={() => {}}>Item #1</MenuItem>
-          <MenuItem onSelected={() => {}}>Item #2</MenuItem>
-          <MenuItem onSelected={() => {}}>Item #3</MenuItem>
-        </Menu>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <img src={logo} />
+        </div>
       </PanelSectionRow>
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <img src={logo} />
-      </div>
       <DialogButton onClick={() => Router.NavigateToLibraryTab()}>
         Go to Library
       </DialogButton>
