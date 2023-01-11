@@ -49,30 +49,33 @@ const Content: VFC<{ backend: Backend }> = (props) => {
       </PanelSectionRow>
 
       <PanelSectionRow>
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <img src={logo} />
-        </div>
-      </PanelSectionRow>
-
-      <PanelSectionRow>
         <ButtonItem
           layout="below"
           onClick={() => {
             Router.CloseSideMenus();
-            Router.Navigate("/decky-plugin-test");
+            Router.Navigate("/filemanager");
           }}
         >
-          Router
+          File Manager
         </ButtonItem>
       </PanelSectionRow>
     </PanelSection>
   );
 };
 
-const DeckyPluginRouterTest: VFC = () => {
+const FileManagerPage: VFC = () => {
   return (
     <div style={{ marginTop: "50px", color: "white" }}>
-      Hello World!
+      <PanelSectionRow>
+        <Menu label="Menu" cancelText="CAAAANCEL" onCancel={() => {}}>
+          <MenuItem onSelected={() => {}}>Item #1</MenuItem>
+          <MenuItem onSelected={() => {}}>Item #2</MenuItem>
+          <MenuItem onSelected={() => {}}>Item #3</MenuItem>
+        </Menu>
+      </PanelSectionRow>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <img src={logo} />
+      </div>
       <DialogButton onClick={() => Router.NavigateToLibraryTab()}>
         Go to Library
       </DialogButton>
@@ -83,7 +86,7 @@ const DeckyPluginRouterTest: VFC = () => {
 export default definePlugin((serverApi: ServerAPI) => {
   const backend = new Backend(serverApi);
 
-  serverApi.routerHook.addRoute("/decky-plugin-test", DeckyPluginRouterTest, {
+  serverApi.routerHook.addRoute("/filemanager", FileManagerPage, {
     exact: true,
   });
 
@@ -92,7 +95,7 @@ export default definePlugin((serverApi: ServerAPI) => {
     content: <Content backend={backend} />,
     icon: <FaShip />,
     onDismount() {
-      serverApi.routerHook.removeRoute("/decky-plugin-test");
+      serverApi.routerHook.removeRoute("/filemanager");
     },
   };
 });
