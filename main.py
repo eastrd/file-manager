@@ -39,7 +39,7 @@ class Plugin:
     async def list_files(self, path):
         base = File(path)
         files = base.list()
-        return json.dumps(files)
+        return json.dumps(files, default=vars)
 
     # Asyncio-compatible long-running code, executed in a task when the plugin is loaded
     async def _main(self):
