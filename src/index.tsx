@@ -15,23 +15,13 @@ import { useState, VFC } from "react";
 import { FaShip } from "react-icons/fa";
 
 import logo from "../assets/logo.png";
+import { Backend } from "./service";
 
-interface AddMethodArgs {
-  left: number;
-  right: number;
-}
-
-const Content: VFC<{ serverAPI: ServerAPI }> = ({}) => {
+const Content: VFC<{ backend: Backend }> = (props) => {
   const [result, setResult] = useState<number | undefined>();
 
   const onClick = async () => {
-    const result = await serverAPI.callPluginMethod<AddMethodArgs, number>(
-      "add",
-      {
-        left: 2,
-        right: 2,
-      }
-    );
+    const result = await props.backend.doAdd();
     if (result.success) {
       setResult(result.result);
     }
@@ -55,7 +45,7 @@ const Content: VFC<{ serverAPI: ServerAPI }> = ({}) => {
         >
           Server says yolo
         </ButtonItem>
-        <ButtonItem onClick={onClick}>ADD?! {result}</ButtonItem>
+        <ButtonItem onClick={onClick}>Add? {result}</ButtonItem>
       </PanelSectionRow>
 
       <PanelSectionRow>
@@ -91,13 +81,15 @@ const DeckyPluginRouterTest: VFC = () => {
 };
 
 export default definePlugin((serverApi: ServerAPI) => {
+  const backend = new Backend(serverApi);
+
   serverApi.routerHook.addRoute("/decky-plugin-test", DeckyPluginRouterTest, {
     exact: true,
   });
 
   return {
     title: <div className={staticClasses.Title}>Example Plugin</div>,
-    content: <Content serverAPI={serverApi} />,
+    content: <Content backend={backend} />,
     icon: <FaShip />,
     onDismount() {
       serverApi.routerHook.removeRoute("/decky-plugin-test");
