@@ -23,11 +23,11 @@ export class Backend {
     });
   }
 
-  async getFiles() {
+  async getFiles(path: string) {
     return this.serverAPI.callPluginMethod<ListFilesArgs, string>(
       "list_files",
       {
-        path: "/",
+        path,
       }
     );
   }
